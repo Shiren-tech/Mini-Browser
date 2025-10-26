@@ -1,0 +1,60 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+public class MiniBrowser {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Stack<String> history = new Stack<>();
+        String choice;
+
+        do {
+            System.out.println("\n=== MINI BROWSER ===");
+            System.out.println("1. Enter the URL");
+            System.out.println("2. Back to previous URL");
+            System.out.println("3. Show the current URL");
+            System.out.println("4. Show the history of the URLs visited");
+            System.out.println("5. Exit the program");
+            System.out.print("Enter your choice: ");
+            choice = input.nextLine();
+
+            if (choice.equals("1")) {
+                System.out.print("Enter URL: ");
+                String url = input.nextLine();
+                history.push(url);
+                System.out.println("Opened: " + url);
+
+            } else if (choice.equals("2")) {
+                if (history.size() > 1) {
+                    history.pop(); // remove current url
+                    System.out.println("Back to previous URL: " + history.peek());
+                } else if (history.size() == 1) {
+                    history.pop();
+                    System.out.println("No previous URL left, stack is empty.");
+                } else {
+                    System.out.println("No URL to go back to!");
+                }
+
+            } else if (choice.equals("3")) {
+                if (!history.isEmpty()) {
+                    System.out.println("Current URL: " + history.peek());
+                } else {
+                    System.out.println("No URL opened yet.");
+                }
+
+            } else if (choice.equals("4")) {
+                if (!history.isEmpty()) {
+                    System.out.println("History of visited URLs: " + history);
+                } else {
+                    System.out.println("History is empty.");
+                }
+
+            } else if (!choice.equals("5")) {
+                System.out.println("Invalid choice, please try again.");
+            }
+
+        } while (!choice.equals("5"));
+
+        System.out.println("Program exited.");
+        input.close();
+    }
+}
